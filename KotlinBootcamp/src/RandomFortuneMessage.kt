@@ -1,14 +1,17 @@
 fun main() {
-    while (true) {
-        print("Enter your birthday: ")
-        val birthday = readlnOrNull()?.toIntOrNull() ?: 1
-        val fortune = getFortuneCookie(birthday)
+    for (i in 1..10) {
+        val fortune = getFortune(getBirthday())
         println("Your fortune is: $fortune")
-        if (fortune.contains("Take it easy")) return
+        if (fortune.contains("Take it easy")) break
     }
 }
 
-fun getFortuneCookie(birthday: Int): String {
+fun getBirthday(): Int {
+    print("Enter your birthday: ")
+    return readlnOrNull()?.toIntOrNull() ?: 1
+}
+
+fun getFortune(birthday: Int): String {
     val messages: List<String> = listOf(
         "You will have a great day!",
         "Things will go well for you today.",
@@ -19,5 +22,9 @@ fun getFortuneCookie(birthday: Int): String {
         "Treasure your friends because they are your greatest fortune.",
         )
 
-    return messages[birthday % messages.size]
+    return when (birthday) {
+        1, 2, 3, 4, 5 -> messages[0]
+        in 6..10 -> messages[1]
+        else -> messages[birthday.rem(messages.size)]
+    }
 }
