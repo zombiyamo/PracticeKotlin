@@ -1,9 +1,9 @@
 fun main() {
-    for (i in 1..10) {
+    repeat(10, {
         val fortune = getFortune(getBirthday())
         println("Your fortune is: $fortune")
-        if (fortune.contains("Take it easy")) break
-    }
+        if (fortune.contains("Take it easy")) return
+    })
 }
 
 fun getBirthday(): Int {
